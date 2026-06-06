@@ -15,6 +15,7 @@ import { registerDiscovery } from "./tools/discovery/index.js";
 import { registerValidate } from "./tools/validate/index.js";
 import { registerHealthCheck } from "./tools/manage/healthCheck.js";
 import { registerScenarioTools } from "./tools/manage/scenarios.js";
+import { registerResourceTools } from "./tools/manage/resources.js";
 
 export function createServer(): McpServer {
   const server = new McpServer({
@@ -36,6 +37,7 @@ export function createServer(): McpServer {
 
   // Phase 4 — management / deploy (write)
   registerScenarioTools(server, ctx);
+  registerResourceTools(server, ctx);
 
   return server;
 }

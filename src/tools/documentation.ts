@@ -42,6 +42,9 @@ const TOOL_DOCS: Record<string, string> = {
   make_update_scenario: "Replace an existing scenario's blueprint (validates first).",
   make_run_scenario: "Trigger a manual run of a scenario by id.",
   make_list_scenarios: "List scenarios in a team.",
+  make_list_connections: "List account connections; use an id as a module's parameters.__IMTCONN__ (match by accountName).",
+  make_list_hooks: "List webhooks; use a free hook's id as parameters.hook in gateway:CustomWebHook.",
+  make_create_hook: "Create a webhook and get its id + URL for a gateway:CustomWebHook trigger.",
 };
 
 export function registerDocumentation(server: McpServer, _ctx: ServerContext): void {

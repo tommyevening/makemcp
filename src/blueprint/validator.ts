@@ -147,7 +147,14 @@ export function validateBlueprint(db: MakeKnowledgeDB, input: Blueprint, resolve
                   level: "warning",
                   module: m.module,
                   moduleId: m.id,
-                  message: `Requires a connection (account:${p.type.slice("account:".length)}). Set parameters.__IMTCONN__ to a connection id from your Make account (list via the Make UI or API).`,
+                  message: `Requires a connection (account:${p.type.slice("account:".length)}). Set parameters.__IMTCONN__ to a connection id — call make_list_connections (type "${p.type.slice("account:".length)}") to find one.`,
+                });
+              } else if (p.name === "hook" || p.type?.startsWith("hook:")) {
+                issues.push({
+                  level: "warning",
+                  module: m.module,
+                  moduleId: m.id,
+                  message: `Requires a webhook. Set parameters.hook to a hook id — call make_list_hooks for a free one, or make_create_hook to make a new webhook.`,
                 });
               } else {
                 issues.push({

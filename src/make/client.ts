@@ -105,4 +105,43 @@ export class MakeClient {
   async listScenarios(teamId?: number): Promise<unknown> {
     return this.request("GET", "/scenarios", { query: { teamId: teamId ?? this.teamId } });
   }
+
+  async listConnections(teamId?: number): Promise<{ connections: MakeConnection[] }> {
+    return this.request("GET", "/connections", { query: { teamId: teamId ?? this.teamId } });
+  }
+
+  async listHooks(teamId?: number): Promise<{ hooks: MakeHook[] }> {
+    return this.request("GET", "/hooks", { query: { teamId: teamId ?? this.teamId } });
+  }
+
+  /** Create a webhook (default a generic custom/gateway webhook). Returns the new hook (with id + url). */
+  async createHook(input: { name: string; teamId?: number; typeName?: string }): Promise<unknown> {
+    return this.request("POST", "/hooks", {
+      body: {
+        name: input.name,
+        teamId: input.teamId ?? this.teamId,
+        typeName: input.typeName ?? "gateway-webhook",
+      },
+    });
+  }
+}
+
+export interface MakeConnection {
+  id: number;
+  name: string;
+  /** Connection type, e.g. "google-restricted", "slack" — matches a module's required account type. */
+  accountName: string;
+  accountLabel?: string;
+  accountType?: string;
+  scoped?: boolean;
+}
+
+export interface MakeHook {
+  id: number;
+  name: string;
+  typeName?: string;
+  url?: string;
+  enabled?: boolean;
+  gone?: boolean;
+  scenarioName?: string | null;
 }
