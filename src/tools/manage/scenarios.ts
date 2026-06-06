@@ -84,16 +84,20 @@ export function registerScenarioTools(server: McpServer, ctx: ServerContext): vo
           teamId: resolvedTeam,
           blueprint: JSON.stringify(result.blueprint),
           scheduling: scheduling ?? '{"type":"on-demand"}',
-        })) as { scenario?: { id?: number; name?: string } };
+        })) as { scenario?: { id?: number; name?: string; isinvalid?: boolean } };
 
         const id = res?.scenario?.id;
+        const invalid = res?.scenario?.isinvalid === true;
         const warnings = result.issues.filter((i) => i.level === "warning");
         return {
           content: [
             {
               type: "text",
               text:
-                `✅ Scenario created${id != null ? ` (id ${id})` : ""}.\n` +
+                (invalid
+                  ? `⚠️ Scenario created (id ${id ?? "?"}) but Make flags it as INVALID (isinvalid=true).\n` +
+                    `Fix the blueprint and call make_update_scenario, or make_verify_scenario for details.\n`
+                  : `✅ Scenario created${id != null ? ` (id ${id})` : ""} — Make reports it valid.\n`) +
                 (warnings.length ? `\n⚠️ Post-deploy notes:\n${summarizeIssues(warnings)}\n` : "") +
                 `\nAPI response:\n${JSON.stringify(res, null, 2)}`,
             },
@@ -157,6 +161,44 @@ export function registerScenarioTools(server: McpServer, ctx: ServerContext): vo
         return { content: [{ type: "text", text: `✅ Scenario ${scenarioId} updated.\n\n${JSON.stringify(res, null, 2)}` }] };
       } catch (err) {
         return { isError: true, content: [{ type: "text", text: `Update failed:\n${errText(err)}` }] };
+      }
+    },
+  );
+
+  server.registerTool(
+    "make_verify_scenario",
+    {
+      title: "Verify a deployed Make scenario",
+      description:
+        "Closed-loop check after deploy: reads Make's own validity flag (isinvalid) for a scenario and re-validates its blueprint locally. Returns a clear verdict + issues so you can autofix and make_update_scenario. (Runtime execution check requires the scenarios:run scope.)",
+      inputSchema: { scenarioId: z.number().int() },
+    },
+    async ({ scenarioId }) => {
+      try {
+        const client = ctx.getClient();
+        const detail = await client.getScenario(scenarioId);
+        const invalid = detail?.scenario?.isinvalid === true;
+
+        let localReport = "";
+        try {
+          const bp = (await client.getScenarioBlueprint(scenarioId)) as { code?: unknown; response?: { blueprint?: Blueprint } } & Blueprint;
+          // The blueprint endpoint may wrap the blueprint; handle common shapes.
+          const blueprint = (bp as any)?.response?.blueprint ?? (bp as any)?.blueprint ?? bp;
+          const result = validateBlueprint(ctx.getDb(), blueprint as Blueprint, makeResolver(ctx));
+          const errs = result.issues.filter((i) => i.level === "error");
+          localReport = errs.length
+            ? `\nLocal re-validation found ${errs.length} issue(s):\n${summarizeIssues(errs)}`
+            : `\nLocal re-validation: no errors.`;
+        } catch {
+          localReport = "\n(Could not re-validate blueprint locally.)";
+        }
+
+        const verdict = invalid
+          ? `❌ Make flags scenario ${scenarioId} as INVALID (isinvalid=true). Fix and make_update_scenario.`
+          : `✅ Make reports scenario ${scenarioId} as valid.`;
+        return { content: [{ type: "text", text: verdict + localReport }] };
+      } catch (err) {
+        return { isError: true, content: [{ type: "text", text: `Verify failed:\n${errText(err)}` }] };
       }
     },
   );

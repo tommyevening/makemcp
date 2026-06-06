@@ -6,7 +6,7 @@
 - 🛠️ Assembles & **validates** blueprints (required fields, IML references, auto-fixes)
 - 🚀 **Deploys** scenarios straight to your Make account
 - 📴 Discovery & validation work **offline**; only deploy needs credentials
-- 🧩 13 MCP tools, TypeScript, no native build deps (uses Node's built-in `node:sqlite`)
+- 🧩 17 MCP tools, TypeScript, no native build deps (uses Node's built-in `node:sqlite`)
 
 > **Status:** community project, MVP-quality. Solid for common scenarios on core apps (Webhooks, HTTP, Google Sheets, Slack, OpenAI, Gmail/email, Drive, routers/iterators). Module-schema depth for the long tail of native apps grows via the blueprint corpus — see [Coverage](#coverage). PRs welcome!
 
@@ -34,7 +34,7 @@ npm run build        # compile to dist/  (data/make.db is committed, works out o
 
 1. **Create a Make API token** (Make → Profile → API/SDK → Add token). Recommended scopes:
    ```
-   scenarios:read scenarios:write user:read connections:read hooks:read hooks:write teams:read sdk-apps:read
+   scenarios:read scenarios:write scenarios:run user:read connections:read hooks:read hooks:write teams:read sdk-apps:read
    ```
 2. **Set env vars** — copy `.env.example` to `.env`:
    ```ini
@@ -80,11 +80,15 @@ Ask Claude things like:
 | `search_templates` / `get_template` | no | Find & fetch reusable blueprints. |
 | `validate_scenario` | no | Validate + autofix + enrich a blueprint. |
 | `make_health_check` | yes | Verify API connectivity / credentials. |
-| `make_create_scenario` | yes | Deploy a new scenario (validates first). |
+| `make_create_scenario` | yes | Deploy a new scenario (validates first; reports Make's validity verdict). |
 | `make_get_scenario` | yes | Fetch an existing scenario's blueprint. |
 | `make_update_scenario` | yes | Replace a scenario's blueprint. |
-| `make_run_scenario` | yes | Trigger a manual run. |
+| `make_verify_scenario` | yes | Closed-loop check: Make's `isinvalid` flag + local re-validation, for autofix. |
+| `make_run_scenario` | yes | Trigger a manual run (needs `scenarios:run` scope). |
 | `make_list_scenarios` | yes | List scenarios in a team. |
+| `make_list_connections` | yes | List connections; pick an id for a module's `__IMTCONN__`. |
+| `make_list_hooks` | yes | List webhooks; pick a free hook id for `gateway:CustomWebHook`. |
+| `make_create_hook` | yes | Create a webhook and get its id + URL. |
 
 ## Coverage
 

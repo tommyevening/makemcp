@@ -92,6 +92,11 @@ export class MakeClient {
     return this.request("GET", `/scenarios/${scenarioId}/blueprint`);
   }
 
+  /** Scenario detail incl. Make's own `isinvalid` validity flag. */
+  async getScenario(scenarioId: number): Promise<{ scenario?: MakeScenario }> {
+    return this.request("GET", `/scenarios/${scenarioId}`);
+  }
+
   async updateScenarioBlueprint(scenarioId: number, blueprint: string, scheduling?: string): Promise<unknown> {
     const body: Record<string, string> = { blueprint };
     if (scheduling) body.scheduling = scheduling;
@@ -124,6 +129,16 @@ export class MakeClient {
       },
     });
   }
+}
+
+export interface MakeScenario {
+  id: number;
+  name?: string;
+  /** Make's own validity flag — true means the deployed scenario is invalid. */
+  isinvalid?: boolean;
+  isActive?: boolean;
+  usedPackages?: string[];
+  scheduling?: unknown;
 }
 
 export interface MakeConnection {
