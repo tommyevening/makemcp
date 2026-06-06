@@ -1,0 +1,112 @@
+[
+  {
+    "module": "gateway:CustomWebHook",
+    "keywords": "trigger instant webhook endpoint inbound http post receive incoming request listen start entrypoint hook payload realtime event",
+    "usage": "Instant trigger. Starts a scenario the moment an HTTP request hits a custom webhook URL. Use as the FIRST module when an external system should push data in (form submit, app event, API callback). Create/select a webhook in `parameters.hook`. Downstream modules read the payload via IML like {{1.body.email}} or {{1.query.id}}. Pair with gateway:WebhookRespond to return a synchronous response. Keywords: receive incoming POST/GET, realtime event, inbound integration, listener, entrypoint."
+  },
+  {
+    "module": "gateway:WebhookRespond",
+    "keywords": "respond reply http response status body return synchronous webhook answer ack",
+    "usage": "Action. Sends a custom HTTP response back to the caller of a gateway:CustomWebHook (synchronous webhook). Place it last on the path. Set status code, body and headers; map the body with IML, e.g. {{2.result}}. Use to build simple HTTP APIs / endpoints in Make that return JSON to the caller."
+  },
+  {
+    "module": "http:ActionSendDataAPIKeyAuth",
+    "keywords": "http request api call rest get post put patch delete fetch url headers query body json bearer apikey authorization integrate any service universal connector outbound",
+    "usage": "Action. Makes an outbound HTTP/REST request to ANY API/URL (the universal connector when no native app exists). Configure method (GET/POST/PUT/PATCH/DELETE), URL, headers, query string and body. Supports API key / bearer auth. Map dynamic values with IML, e.g. URL https://api.x.com/users/{{1.id}}. Parse the response downstream (response is JSON/text). Use for custom APIs, webhooks out, AI providers, or any unsupported service."
+  },
+  {
+    "module": "util:SetVariables",
+    "keywords": "set variable variables store assign constant value reuse later mapping helper temp roundtrip execution scope define name",
+    "usage": "Action (Tools). Defines one or more named variables to reuse later in the scenario, keeping the flow clean. Required `scope`: 'roundtrip' (this run) or 'execution'. Add items to `variables` as {name, value}; values can be IML, e.g. {{1.firstName}} {{1.lastName}}. Reference later via {{<thisModuleId>.varName}}. Use for config constants, computed values, or to avoid repeating long expressions."
+  },
+  {
+    "module": "builtin:BasicRouter",
+    "keywords": "router branch route split paths conditional if else multiple routes fan-out filter decision flow control diverge",
+    "usage": "Flow control. Splits the flow into multiple parallel routes; each route can have its own filter so only matching bundles continue (if/else branching). Use to send data to different apps based on conditions, or to do several things at once after a trigger. Add a filter on each outgoing route (e.g. {{1.status}} = paid). Routes execute top-to-bottom; put the catch-all/fallback route last."
+  },
+  {
+    "module": "builtin:BasicAggregator",
+    "keywords": "aggregate aggregator combine merge collect group bundles array into one rows batch consolidate summarize join collect items",
+    "usage": "Flow control. Merges MANY bundles (e.g. rows from an iterator/search) into a SINGLE bundle/array. Set the source module and choose which fields to aggregate. Use after a search/iterator to build one combined payload — e.g. collect rows before one HTTP POST, or join text. Output is consumed as an array by the next module."
+  },
+  {
+    "module": "builtin:BasicFeeder",
+    "keywords": "iterator iterate loop foreach split array into bundles each item one by one explode unwind process list elements",
+    "usage": "Flow control (Iterator). Splits an array into separate bundles so following modules run once PER item (loop / for-each). Point it at an array, e.g. {{1.items}}. Everything after the iterator runs for each element; combine results afterwards with builtin:BasicAggregator. Use to process lists: line items, search results, CSV rows, array from an API."
+  },
+  {
+    "module": "email:ActionSendEmail",
+    "keywords": "send email smtp message mail notify notification recipient to subject body html attachment cc bcc transactional alert",
+    "usage": "Action. Sends an email via an SMTP/IMAP email connection. Required connection. Set `to`, `subject`, and content (text/HTML); supports cc, bcc, attachments. Map fields with IML, e.g. subject 'Order {{1.orderId}}'. Use for notifications, alerts, confirmations, reports. For Gmail/Outlook specifics use their native apps instead."
+  },
+  {
+    "module": "openai-gpt-3:CreateCompletion",
+    "keywords": "openai chatgpt gpt llm ai chat completion prompt message generate text summarize classify extract rewrite assistant model temperature tokens",
+    "usage": "Action (AI). Calls OpenAI Chat Completions to generate/transform text with an LLM (summarize, classify, extract, rewrite, answer). Required connection (account:openai-gpt-3). Required: `model` (e.g. gpt-4o), `messages` (array of {role, content} — system+user), and `max_tokens`. Map the prompt with IML, e.g. content 'Summarize: {{1.text}}'. Read the result downstream from the choices/message content. Tune temperature, top_p, response_format (e.g. json)."
+  },
+  {
+    "module": "slack:CreateMessage",
+    "keywords": "slack send message post chat channel notify notification dm im thread blocks markdown alert team chatops",
+    "usage": "Action. Posts a message to a Slack channel or user (DM). Required Slack connection. Pick `channelType` (public/private/im/mpim) and `channel`, then set `text` (supports markdown via mrkdwn) and/or rich `blocks`. Map content with IML, e.g. 'New lead: {{1.name}}'. Use thread_ts to reply in a thread. Use for alerts, chatops, team notifications."
+  },
+  {
+    "module": "google-sheets:addRow",
+    "keywords": "google sheets spreadsheet add append insert new row write record log append data table cell values",
+    "usage": "Action. Appends a new row to a Google Sheet. Required Google connection (account:google). Choose the spreadsheet (`spreadsheetId`), `sheetId` (tab), and `from`/`mode` to locate it; set `includesHeaders`. Provide cell `values` mapped by column, with IML e.g. {{1.name}}, {{1.email}}. Use to log form submissions, append records, build datasets. To change an existing cell use google-sheets:updateCell; to read/filter use google-sheets:filterRows."
+  },
+  {
+    "module": "google-sheets:updateCell",
+    "keywords": "google sheets update edit modify cell value set overwrite change existing row column write",
+    "usage": "Action. Updates the value of a specific cell (or range) in a Google Sheet. Required Google connection. Identify the spreadsheet, sheet/tab and the cell address (e.g. B2), then set the new value (IML allowed). Use to update status, write back computed/AI results, or mark rows processed after an iterator."
+  },
+  {
+    "module": "google-sheets:filterRows",
+    "keywords": "google sheets search filter rows read query lookup find get records select where matching list iterate",
+    "usage": "Search. Reads and returns rows from a Google Sheet that match a filter (search/lookup). Required Google connection. Set spreadsheet, sheet, and filter criteria; returns multiple bundles (one per matching row) — follow with an iterator/aggregator or process each. Use to look up records, drive a loop, or sync data out of a sheet."
+  },
+  {
+    "module": "google-drive:uploadAFile",
+    "keywords": "google drive upload file put store save document image binary attachment folder create file",
+    "usage": "Action. Uploads/creates a file in Google Drive. Required Google Drive connection. Provide the file (data/binary, often from a previous module like an HTTP download or attachment) plus name and destination folder. Map the binary with IML, e.g. {{3.data}}. Use to archive attachments, save generated PDFs/images, or store API downloads."
+  },
+  {
+    "module": "google-drive:ActionCreateFolder",
+    "keywords": "google drive create folder directory new make mkdir organize path",
+    "usage": "Action. Creates a new folder in Google Drive. Required Google Drive connection. Set the folder name and parent location. Use to organize uploads per customer/date, then reference the new folder id when uploading files with google-drive:uploadAFile."
+  },
+  {
+    "module": "asana:WatchNewTasks",
+    "keywords": "asana trigger watch new tasks poll project task created monitor incoming work item",
+    "usage": "Trigger. Watches an Asana project and starts the scenario for each new task. Required Asana connection. Set the workspace and `project` and a `limit`. Downstream read fields via IML, e.g. {{1.name}}, {{1.gid}}, {{1.permalink_url}}. Use to sync new tasks to Slack/Sheets/email or kick off automations on task creation."
+  },
+  {
+    "module": "calendly:inviteeCreated",
+    "keywords": "calendly trigger booking scheduled invitee created meeting appointment new event webhook scheduling",
+    "usage": "Trigger. Fires when someone books a meeting in Calendly (invitee created). Required Calendly connection. Provides invitee name, email, event time and answers via IML, e.g. {{1.email}}. Use to create CRM contacts, add calendar/Zoom meetings, send confirmations, or log bookings."
+  },
+  {
+    "module": "zoom:createMeeting",
+    "keywords": "zoom create meeting schedule video call generate join url webinar conference invite",
+    "usage": "Action. Schedules/creates a Zoom meeting and returns the join URL. Required Zoom connection. Set topic, start time, duration and settings; map values with IML, e.g. topic 'Call with {{1.name}}'. Use after a booking trigger (Calendly/typeform) to generate the meeting link, then email/Slack it to the attendee."
+  },
+  {
+    "module": "stripe:WatchCharges",
+    "keywords": "stripe trigger watch charges payment paid transaction new charge webhook revenue purchase",
+    "usage": "Trigger. Starts the scenario for each new Stripe charge/payment. Required Stripe connection. Exposes amount, customer, status via IML, e.g. {{1.amount}}, {{1.customer}}. Use to log sales to Sheets, notify Slack, send receipts, or update a CRM on payment. Often followed by a router to branch on paid/failed."
+  },
+  {
+    "module": "telegram:SendReplyMessage",
+    "keywords": "telegram bot send message reply chat notify notification text channel group dm broadcast",
+    "usage": "Action. Sends a message via a Telegram bot to a chat/channel/user. Required Telegram bot connection. Set the chat id and message `text` (supports markdown); map with IML, e.g. 'Alert: {{1.title}}'. Use for bot replies, alerts, broadcasts. Pair with a Telegram trigger for two-way bots."
+  },
+  {
+    "module": "vapi:createOutboundPhoneCall",
+    "keywords": "vapi voice ai phone call outbound dial call customer agent assistant telephony automated voicebot",
+    "usage": "Action. Starts an outbound AI phone call via Vapi (voice agent/voicebot). Required Vapi connection. Provide the destination phone number, assistant id and any variables; map with IML, e.g. number {{1.phone}}. Use for AI cold-calling, reminders, confirmations. Pair with vapi:endOfCallReport to capture the result."
+  },
+  {
+    "module": "vapi:endOfCallReport",
+    "keywords": "vapi trigger end of call report webhook result transcript summary outcome phone call finished",
+    "usage": "Trigger. Fires when a Vapi phone call ends, delivering the transcript, summary and outcome. Required Vapi setup. Read results via IML, e.g. {{1.summary}}, {{1.transcript}}. Use to log call results to Sheets/CRM, route follow-ups, or notify the team after AI calls."
+  }
+]

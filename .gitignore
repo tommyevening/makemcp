@@ -1,0 +1,18 @@
+node_modules/
+dist/
+*.log
+.env
+.env.local
+.env.*.local
+.DS_Store
+.vscode/
+.idea/
+
+# Built knowledge DB is regenerated via `npm run build:db`.
+# Keep the committed/shipped copy in data/ but ignore scratch builds.
+data/*.tmp
+data/cache/
+
+# Local scratch / test harnesses and logs
+scratch/
+build.log

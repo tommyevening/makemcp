@@ -1,0 +1,281 @@
+{
+  "flow": [
+    {
+      "id": 3,
+      "mapper": {},
+      "module": "asana:WatchNewTasks",
+      "version": 2,
+      "metadata": {
+        "restore": {
+          "parameters": {
+            "filter": {
+              "label": "Project"
+            },
+            "project": {
+              "mode": "chose",
+              "label": "[CloudNative Inc.] okash1n-test"
+            },
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "asana"
+              },
+              "label": "My Asana connection"
+            },
+            "workspaceRPC": {
+              "label": "[Organization] CloudNative Inc."
+            }
+          }
+        },
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:asana",
+            "label": "Connection",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "type": "select",
+            "label": "Filter",
+            "required": true,
+            "validate": {
+              "enum": [
+                "workspaceassignee",
+                "project",
+                "section",
+                "tag"
+              ]
+            }
+          },
+          {
+            "name": "completed_since",
+            "type": "date",
+            "label": "Completed Since"
+          },
+          {
+            "name": "modified_since",
+            "type": "date",
+            "label": "Modified Since "
+          },
+          {
+            "name": "page",
+            "type": "uinteger",
+            "label": "Limit",
+            "required": true
+          },
+          {
+            "name": "workspaceRPC",
+            "type": "select",
+            "label": "Workspace",
+            "required": true
+          },
+          {
+            "name": "project",
+            "type": "select",
+            "label": "Project ID",
+            "required": true
+          }
+        ]
+      },
+      "parameters": {
+        "page": 10,
+        "filter": "project",
+        "project": "1209044428486087",
+        "__IMTCONN__": 32411,
+        "workspaceRPC": "954608403209504",
+        "modified_since": null,
+        "completed_since": null
+      }
+    },
+    {
+      "id": 4,
+      "mapper": {
+        "text": "あああ変更をします。ああああタスク追加されましたああああaaaaaaaaaa\n{{3.gid}}\n{{3.permalink_url}}\n",
+        "parse": false,
+        "mrkdwn": true,
+        "channel": "C08387WE4A3",
+        "channelType": "public",
+        "channelWType": "list"
+      },
+      "module": "slack:CreateMessage",
+      "version": 4,
+      "metadata": {
+        "expect": [
+          {
+            "name": "channelWType",
+            "type": "select",
+            "label": "Enter a channel ID or name",
+            "required": true,
+            "validate": {
+              "enum": [
+                "manualy",
+                "list"
+              ]
+            }
+          },
+          {
+            "name": "text",
+            "type": "text",
+            "label": "Text"
+          },
+          {
+            "name": "blocks",
+            "type": "text",
+            "label": "Blocks"
+          },
+          {
+            "name": "thread_ts",
+            "type": "text",
+            "label": "Thread message ID (time stamp)"
+          },
+          {
+            "name": "reply_broadcast",
+            "type": "boolean",
+            "label": "Reply broadcast"
+          },
+          {
+            "name": "link_names",
+            "type": "boolean",
+            "label": "Link names"
+          },
+          {
+            "name": "parse",
+            "type": "boolean",
+            "label": "Parse message text"
+          },
+          {
+            "name": "mrkdwn",
+            "type": "boolean",
+            "label": "Use markdown"
+          },
+          {
+            "name": "unfurl_links",
+            "type": "boolean",
+            "label": "Unfurl primarily text-based content"
+          },
+          {
+            "name": "unfurl_media",
+            "type": "boolean",
+            "label": "Unfurl media content"
+          },
+          {
+            "name": "icon_emoji",
+            "type": "text",
+            "label": "Icon emoji"
+          },
+          {
+            "name": "icon_url",
+            "type": "url",
+            "label": "Icon url"
+          },
+          {
+            "name": "username",
+            "type": "text",
+            "label": "User name"
+          },
+          {
+            "name": "channelType",
+            "type": "select",
+            "label": "Channel type",
+            "required": true,
+            "validate": {
+              "enum": [
+                "public",
+                "private",
+                "im",
+                "mpim"
+              ]
+            }
+          },
+          {
+            "name": "channel",
+            "type": "select",
+            "label": "Public channel",
+            "required": true
+          }
+        ],
+        "restore": {
+          "expect": {
+            "parse": {
+              "mode": "chose"
+            },
+            "mrkdwn": {
+              "mode": "chose"
+            },
+            "channel": {
+              "mode": "chose",
+              "label": "okash1n-make-test"
+            },
+            "link_names": {
+              "mode": "chose"
+            },
+            "channelType": {
+              "label": "Public channel"
+            },
+            "channelWType": {
+              "label": "Select from the list"
+            },
+            "unfurl_links": {
+              "mode": "chose"
+            },
+            "unfurl_media": {
+              "mode": "chose"
+            },
+            "reply_broadcast": {
+              "mode": "chose"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "slack2"
+              },
+              "label": "sandbox5 (okash1n)"
+            }
+          }
+        },
+        "designer": {
+          "x": 321,
+          "y": 6
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:slack2,slack3",
+            "label": "Connection",
+            "required": true
+          }
+        ]
+      },
+      "parameters": {
+        "__IMTCONN__": 32412
+      }
+    }
+  ],
+  "name": "Integration Asana, Slack",
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "designer": {
+      "orphans": []
+    },
+    "scenario": {
+      "dlq": false,
+      "slots": null,
+      "dataloss": false,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "roundtrips": 1,
+      "sequential": false,
+      "confidential": false,
+      "freshVariables": false,
+      "autoCommitTriggerLast": true
+    }
+  }
+}

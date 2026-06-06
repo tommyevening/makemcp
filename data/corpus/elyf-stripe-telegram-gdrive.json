@@ -1,0 +1,966 @@
+{
+    "name": "Conversion Consult Specialists (Stripe Payment)",
+    "flow": [
+        {
+            "id": 1,
+            "module": "stripe:WatchCharges",
+            "version": 1,
+            "parameters": {
+                "__IMTHOOK__": 198528
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 300
+                },
+                "restore": {
+                    "__IMTHOOK__": {
+                        "label": "My Stripe - Watch events webhook"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "created",
+                        "type": "date",
+                        "label": "Created"
+                    },
+                    {
+                        "name": "event_type",
+                        "type": "text",
+                        "label": "Event type"
+                    },
+                    {
+                        "name": "event_id",
+                        "type": "text",
+                        "label": "Event ID"
+                    },
+                    {
+                        "name": "object",
+                        "spec": [
+                            {
+                                "name": "object",
+                                "type": "text",
+                                "label": "Object"
+                            },
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "amount",
+                                "type": "number",
+                                "label": "Amount"
+                            },
+                            {
+                                "name": "amount_refunded",
+                                "type": "number",
+                                "label": "Amount refunded"
+                            },
+                            {
+                                "name": "application",
+                                "type": "text",
+                                "label": "Application"
+                            },
+                            {
+                                "name": "application_fee",
+                                "type": "text",
+                                "label": "Application fee"
+                            },
+                            {
+                                "name": "balance_transaction",
+                                "type": "text",
+                                "label": "Balance transaction"
+                            },
+                            {
+                                "name": "captured",
+                                "type": "boolean",
+                                "label": "Captured"
+                            },
+                            {
+                                "name": "created",
+                                "type": "date",
+                                "label": "Created"
+                            },
+                            {
+                                "name": "currency",
+                                "type": "text",
+                                "label": "Currency"
+                            },
+                            {
+                                "name": "customer",
+                                "type": "text",
+                                "label": "Customer"
+                            },
+                            {
+                                "name": "description",
+                                "type": "text",
+                                "label": "Description"
+                            },
+                            {
+                                "name": "destination",
+                                "type": "text",
+                                "label": "Destination"
+                            },
+                            {
+                                "name": "dispute",
+                                "type": "text",
+                                "label": "Dispute"
+                            },
+                            {
+                                "name": "failure_code",
+                                "type": "text",
+                                "label": "Failure code"
+                            },
+                            {
+                                "name": "failure_message",
+                                "type": "text",
+                                "label": "Failure message"
+                            },
+                            {
+                                "name": "fraud_details",
+                                "spec": [],
+                                "type": "collection",
+                                "label": "Fraud details"
+                            },
+                            {
+                                "name": "invoice",
+                                "type": "text",
+                                "label": "Invoice"
+                            },
+                            {
+                                "name": "livemode",
+                                "type": "boolean",
+                                "label": "Livemode"
+                            },
+                            {
+                                "name": "metadata",
+                                "spec": [],
+                                "type": "collection",
+                                "label": "Metadata"
+                            },
+                            {
+                                "name": "on_behalf_of",
+                                "type": "text",
+                                "label": "On behalf of"
+                            },
+                            {
+                                "name": "order",
+                                "type": "text",
+                                "label": "Order"
+                            },
+                            {
+                                "name": "outcome",
+                                "spec": [
+                                    {
+                                        "name": "network_status",
+                                        "type": "text",
+                                        "label": "Network status"
+                                    },
+                                    {
+                                        "name": "reason",
+                                        "type": "text",
+                                        "label": "Reason"
+                                    },
+                                    {
+                                        "name": "risk_level",
+                                        "type": "text",
+                                        "label": "Risk level"
+                                    },
+                                    {
+                                        "name": "rule",
+                                        "type": "text",
+                                        "label": "Rule"
+                                    },
+                                    {
+                                        "name": "seller_message",
+                                        "type": "text",
+                                        "label": "Seller message"
+                                    },
+                                    {
+                                        "name": "type",
+                                        "type": "text",
+                                        "label": "Type"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Outcome"
+                            },
+                            {
+                                "name": "paid",
+                                "type": "boolean",
+                                "label": "Paid"
+                            },
+                            {
+                                "name": "receipt_email",
+                                "type": "text",
+                                "label": "Receipt email"
+                            },
+                            {
+                                "name": "receipt_number",
+                                "type": "text",
+                                "label": "Receipt number"
+                            },
+                            {
+                                "name": "refunded",
+                                "type": "boolean",
+                                "label": "Refunded"
+                            },
+                            {
+                                "name": "refunds",
+                                "spec": [
+                                    {
+                                        "name": "object",
+                                        "type": "text",
+                                        "label": "Object"
+                                    },
+                                    {
+                                        "name": "data",
+                                        "type": "array",
+                                        "label": "Data"
+                                    },
+                                    {
+                                        "name": "has_more",
+                                        "type": "boolean",
+                                        "label": "Has more"
+                                    },
+                                    {
+                                        "name": "total_count",
+                                        "type": "number",
+                                        "label": "Total count"
+                                    },
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "URL"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Refunds"
+                            },
+                            {
+                                "name": "review",
+                                "type": "text",
+                                "label": "Review"
+                            },
+                            {
+                                "name": "shipping",
+                                "spec": [
+                                    {
+                                        "name": "address",
+                                        "spec": [
+                                            {
+                                                "name": "city",
+                                                "type": "text",
+                                                "label": "City"
+                                            },
+                                            {
+                                                "name": "country",
+                                                "type": "text",
+                                                "label": "Country"
+                                            },
+                                            {
+                                                "name": "line1",
+                                                "type": "text",
+                                                "label": "Line 1"
+                                            },
+                                            {
+                                                "name": "line2",
+                                                "type": "text",
+                                                "label": "Line 2"
+                                            },
+                                            {
+                                                "name": "postal_code",
+                                                "type": "text",
+                                                "label": "Postal code"
+                                            },
+                                            {
+                                                "name": "state",
+                                                "type": "text",
+                                                "label": "State"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Address"
+                                    },
+                                    {
+                                        "name": "carrier",
+                                        "type": "text",
+                                        "label": "Carrier"
+                                    },
+                                    {
+                                        "name": "name",
+                                        "type": "text",
+                                        "label": "Name"
+                                    },
+                                    {
+                                        "name": "phone",
+                                        "type": "text",
+                                        "label": "Phone"
+                                    },
+                                    {
+                                        "name": "tracking_number",
+                                        "type": "text",
+                                        "label": "Tracking number"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Shipping"
+                            },
+                            {
+                                "name": "source",
+                                "spec": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "object",
+                                        "type": "text",
+                                        "label": "Object"
+                                    },
+                                    {
+                                        "name": "address_city",
+                                        "type": "text",
+                                        "label": "Address city"
+                                    },
+                                    {
+                                        "name": "address_country",
+                                        "type": "text",
+                                        "label": "Address country"
+                                    },
+                                    {
+                                        "name": "address_line1",
+                                        "type": "text",
+                                        "label": "Address line 1"
+                                    },
+                                    {
+                                        "name": "address_line1_check",
+                                        "type": "text",
+                                        "label": "Address line 1 check"
+                                    },
+                                    {
+                                        "name": "address_line2",
+                                        "type": "text",
+                                        "label": "Address line 2"
+                                    },
+                                    {
+                                        "name": "address_state",
+                                        "type": "text",
+                                        "label": "Address state"
+                                    },
+                                    {
+                                        "name": "address_zip",
+                                        "type": "text",
+                                        "label": "Address ZIP"
+                                    },
+                                    {
+                                        "name": "address_zip_check",
+                                        "type": "text",
+                                        "label": "Address ZIP check"
+                                    },
+                                    {
+                                        "name": "brand",
+                                        "type": "text",
+                                        "label": "Brand"
+                                    },
+                                    {
+                                        "name": "country",
+                                        "type": "text",
+                                        "label": "Country"
+                                    },
+                                    {
+                                        "name": "customer",
+                                        "type": "text",
+                                        "label": "Customer"
+                                    },
+                                    {
+                                        "name": "cvc_check",
+                                        "type": "text",
+                                        "label": "CVC check"
+                                    },
+                                    {
+                                        "name": "dynamic_last4",
+                                        "type": "text",
+                                        "label": "Dynamic last 4"
+                                    },
+                                    {
+                                        "name": "exp_month",
+                                        "type": "number",
+                                        "label": "Expiration month"
+                                    },
+                                    {
+                                        "name": "exp_year",
+                                        "type": "number",
+                                        "label": "Expiration year"
+                                    },
+                                    {
+                                        "name": "fingerprint",
+                                        "type": "text",
+                                        "label": "Fingerprint"
+                                    },
+                                    {
+                                        "name": "funding",
+                                        "type": "text",
+                                        "label": "Funding"
+                                    },
+                                    {
+                                        "name": "last4",
+                                        "type": "text",
+                                        "label": "Last 4"
+                                    },
+                                    {
+                                        "name": "metadata",
+                                        "spec": [],
+                                        "type": "collection",
+                                        "label": "Metadata"
+                                    },
+                                    {
+                                        "name": "name",
+                                        "type": "text",
+                                        "label": "Name"
+                                    },
+                                    {
+                                        "name": "tokenization_method",
+                                        "type": "text",
+                                        "label": "Tokenization method"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Source"
+                            },
+                            {
+                                "name": "source_transfer",
+                                "type": "text",
+                                "label": "Source transfer"
+                            },
+                            {
+                                "name": "statement_descriptor",
+                                "type": "text",
+                                "label": "Statement descriptor"
+                            },
+                            {
+                                "name": "status",
+                                "type": "text",
+                                "label": "Status"
+                            },
+                            {
+                                "name": "transfer_group",
+                                "type": "text",
+                                "label": "Transfer group"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Object"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 300
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 2,
+                            "module": "telegram:SendReplyMessage",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 746629
+                            },
+                            "mapper": {
+                                "text": "New <b>{{1.object.object}}</b> from <b>{{1.object.billing_details.name}}</b> for <b>{{1.object.amount}} {{1.object.currency}}</b> with status <b>{{1.object.status}}</b>",
+                                "chatId": "-284277438",
+                                "parseMode": "HTML",
+                                "replyMarkup": "",
+                                "replyToMessageId": "",
+                                "disableNotification": false,
+                                "disableWebPagePreview": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "parseMode": {
+                                        "label": "HTML"
+                                    },
+                                    "__IMTCONN__": {
+                                        "label": "Conversion Consult Bot "
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "chatId",
+                                        "type": "text",
+                                        "label": "Chat ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "parseMode",
+                                        "type": "select",
+                                        "label": "Parse mode",
+                                        "validate": {
+                                            "enum": [
+                                                "Markdown",
+                                                "HTML"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "disableNotification",
+                                        "type": "boolean",
+                                        "label": "Disable notification"
+                                    },
+                                    {
+                                        "name": "disableWebPagePreview",
+                                        "type": "boolean",
+                                        "label": "Disable link previews"
+                                    },
+                                    {
+                                        "name": "replyToMessageId",
+                                        "type": "number",
+                                        "label": "ID of the original message"
+                                    },
+                                    {
+                                        "name": "replyMarkup",
+                                        "type": "text",
+                                        "label": "Reply markup - additonal interface options"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 3,
+                            "module": "google-drive:ActionCreateFolder",
+                            "version": 3,
+                            "parameters": {
+                                "account": 746704
+                            },
+                            "filter": {
+                                "name": "If status is succeeded",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.object.status}}",
+                                            "b": "succeeded",
+                                            "o": "text:equal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "title": "{{1.object.billing_details.name}}",
+                                "folderId": "/1kkQJkUIw2CpQcQOoIDdDawIVCP_HgV4L/1SnYqL3ifx1GRJMWw760MHGABqXbwa0v0/19_221tJ0cqwGLF5qrJ0cF4hBAwrGAC8_",
+                                "destination": "personal",
+                                "shareFolder": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "account": {
+                                        "label": "Personal Google Connection (ely.fornoville@gmail.com)"
+                                    },
+                                    "folderId": {
+                                        "mode": "chose",
+                                        "path": [
+                                            "StartUps",
+                                            "Conversion Consult Specialists",
+                                            "Clients"
+                                        ]
+                                    },
+                                    "destination": {
+                                        "label": "My Drive"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "account",
+                                        "type": "account",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "title",
+                                        "type": "text",
+                                        "label": "The name of the new folder"
+                                    },
+                                    {
+                                        "name": "shareFolder",
+                                        "type": "boolean",
+                                        "label": "Share folder",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Destination",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "personal",
+                                                "shared"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "folderId",
+                                        "type": "folder",
+                                        "label": "New folder location",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 12,
+                            "module": "email:ActionSendEmail",
+                            "version": 6,
+                            "parameters": {
+                                "folder": "[Gmail]/Verzonden berichten",
+                                "account": 761045,
+                                "accountImap": 746710,
+                                "saveAfterSent": true
+                            },
+                            "filter": {
+                                "name": "if status is succeeded",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.object.status}}",
+                                            "b": "succeeded",
+                                            "o": "text:equal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "cc": [],
+                                "to": [
+                                    "{{1.object.billing_details.email}}"
+                                ],
+                                "bcc": [],
+                                "from": "",
+                                "html": "<!doctype html><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\"><head>   <!-- NAME: 1 COLUMN -->   <!--[if gte mso 15]>   <xml>      <o:OfficeDocumentSettings>         <o:AllowPNG/>         <o:PixelsPerInch>96</o:PixelsPerInch>      </o:OfficeDocumentSettings>   </xml>   <![endif]-->   <meta charset=\"UTF-8\">   <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">   <title>Welcome to Landing Page Specialist</title>   <style type=\"text/css\">      p{         margin:10px 0;         padding:0;         }      table{         border-collapse:collapse;         }      h1,h2,h3,h4,h5,h6{         display:block;         margin:0;         padding:0;         }      img,a img{         border:0;         height:auto;         outline:none;         text-decoration:none;         }      body,#bodyTable,#bodyCell{         height:100%;         margin:0;         padding:0;         width:100%;         }      .mcnPreviewText{         display:none !important;         }      #outlook a{         padding:0;         }      img{         -ms-interpolation-mode:bicubic;         }      table{         mso-table-lspace:0pt;         mso-table-rspace:0pt;         }      .ReadMsgBody{         width:100%;         }      .ExternalClass{         width:100%;         }      p,a,li,td,blockquote{         mso-line-height-rule:exactly;         }      a[href^=tel],a[href^=sms]{         color:inherit;         cursor:default;         text-decoration:none;         }      p,a,li,td,body,table,blockquote{         -ms-text-size-adjust:100%;         -webkit-text-size-adjust:100%;         }      .ExternalClass,.ExternalClass p,.ExternalClass td,.ExternalClass div,.ExternalClass span,.ExternalClass font{         line-height:100%;         }      a[x-apple-data-detectors]{         color:inherit !important;         text-decoration:none !important;         font-size:inherit !important;         font-family:inherit !important;         font-weight:inherit !important;         line-height:inherit !important;         }      #bodyCell{         padding:10px;         }      .templateContainer{         max-width:600px !important;         border:1px none ;         }      a.mcnButton{         display:block;         }      .mcnImage,.mcnRetinaImage{         vertical-align:bottom;         }      .mcnTextContent{         word-break:break-word;         }      .mcnTextContent img{         height:auto !important;         }      .mcnDividerBlock{         table-layout:fixed !important;         }      /*      @tab Page      @section Background Style      @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.      */      body,#bodyTable{         /*@editable*/background-color:#FAFAFA;         }      /*      @tab Page      @section Background Style      @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.      */      #bodyCell{         /*@editable*/border-top:0;         }      /*      @tab Page      @section Email Border      @tip Set the border for your email.      */      .templateContainer{         /*@editable*/border:1px none ;         }      /*      @tab Page      @section Heading 1      @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.      @style heading 1      */      h1{         /*@editable*/color:#202020;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:26px;         /*@editable*/font-style:normal;         /*@editable*/font-weight:bold;         /*@editable*/line-height:125%;         /*@editable*/letter-spacing:normal;         /*@editable*/text-align:left;         }      /*      @tab Page      @section Heading 2      @tip Set the styling for all second-level headings in your emails.      @style heading 2      */      h2{         /*@editable*/color:#202020;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:22px;         /*@editable*/font-style:normal;         /*@editable*/font-weight:bold;         /*@editable*/line-height:125%;         /*@editable*/letter-spacing:normal;         /*@editable*/text-align:left;         }      /*      @tab Page      @section Heading 3      @tip Set the styling for all third-level headings in your emails.      @style heading 3      */      h3{         /*@editable*/color:#202020;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:20px;         /*@editable*/font-style:normal;         /*@editable*/font-weight:bold;         /*@editable*/line-height:125%;         /*@editable*/letter-spacing:normal;         /*@editable*/text-align:left;         }      /*      @tab Page      @section Heading 4      @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.      @style heading 4      */      h4{         /*@editable*/color:#202020;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:18px;         /*@editable*/font-style:normal;         /*@editable*/font-weight:bold;         /*@editable*/line-height:125%;         /*@editable*/letter-spacing:normal;         /*@editable*/text-align:left;         }      /*      @tab Preheader      @section Preheader Style      @tip Set the background color and borders for your email's preheader area.      */      #templatePreheader{         /*@editable*/background-color:#fafafa;         /*@editable*/background-image:none;         /*@editable*/background-repeat:no-repeat;         /*@editable*/background-position:center;         /*@editable*/background-size:cover;         /*@editable*/border-top:0;         /*@editable*/border-bottom:0;         /*@editable*/padding-top:50px;         /*@editable*/padding-bottom:0px;         }      /*      @tab Preheader      @section Preheader Text      @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.      */      #templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{         /*@editable*/color:#656565;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:12px;         /*@editable*/line-height:150%;         /*@editable*/text-align:left;         }      /*      @tab Preheader      @section Preheader Link      @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.      */      #templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p a{         /*@editable*/color:#656565;         /*@editable*/font-weight:normal;         /*@editable*/text-decoration:underline;         }      /*      @tab Header      @section Header Style      @tip Set the background color and borders for your email's header area.      */      #templateHeader{         /*@editable*/background-color:#ffffff;         /*@editable*/background-image:none;         /*@editable*/background-repeat:no-repeat;         /*@editable*/background-position:center;         /*@editable*/background-size:cover;         /*@editable*/border-top:0;         /*@editable*/border-bottom:0;         /*@editable*/padding-top:9px;         /*@editable*/padding-bottom:0;         }      /*      @tab Header      @section Header Text      @tip Set the styling for your email's header text. Choose a size and color that is easy to read.      */      #templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{         /*@editable*/color:#202020;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:16px;         /*@editable*/line-height:150%;         /*@editable*/text-align:left;         }      /*      @tab Header      @section Header Link      @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.      */      #templateHeader .mcnTextContent a,#templateHeader .mcnTextContent p a{         /*@editable*/color:#007C89;         /*@editable*/font-weight:normal;         /*@editable*/text-decoration:underline;         }      /*      @tab Body      @section Body Style      @tip Set the background color and borders for your email's body area.      */      #templateBody{         /*@editable*/background-color:#ffffff;         /*@editable*/background-image:none;         /*@editable*/background-repeat:no-repeat;         /*@editable*/background-position:center;         /*@editable*/background-size:cover;         /*@editable*/border-top:0;         /*@editable*/border-bottom:2px none #EAEAEA;         /*@editable*/padding-top:0;         /*@editable*/padding-bottom:9px;         }      /*      @tab Body      @section Body Text      @tip Set the styling for your email's body text. Choose a size and color that is easy to read.      */      #templateBody .mcnTextContent,#templateBody .mcnTextContent p{         /*@editable*/color:#202020;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:16px;         /*@editable*/line-height:150%;         /*@editable*/text-align:left;         }      /*      @tab Body      @section Body Link      @tip Set the styling for your email's body links. Choose a color that helps them stand out from your text.      */      #templateBody .mcnTextContent a,#templateBody .mcnTextContent p a{         /*@editable*/color:#007C89;         /*@editable*/font-weight:normal;         /*@editable*/text-decoration:underline;         }      /*      @tab Footer      @section Footer Style      @tip Set the background color and borders for your email's footer area.      */      #templateFooter{         /*@editable*/background-color:#fafafa;         /*@editable*/background-image:none;         /*@editable*/background-repeat:no-repeat;         /*@editable*/background-position:center;         /*@editable*/background-size:cover;         /*@editable*/border-top:0;         /*@editable*/border-bottom:0;         /*@editable*/padding-top:9px;         /*@editable*/padding-bottom:9px;         }      /*      @tab Footer      @section Footer Text      @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.      */      #templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{         /*@editable*/color:#656565;         /*@editable*/font-family:Helvetica;         /*@editable*/font-size:12px;         /*@editable*/line-height:150%;         /*@editable*/text-align:center;         }      /*      @tab Footer      @section Footer Link      @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.      */      #templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{         /*@editable*/color:#656565;         /*@editable*/font-weight:normal;         /*@editable*/text-decoration:underline;         }      @media only screen and (min-width:768px){         .templateContainer{            width:600px !important;            }         }  @media only screen and (max-width: 480px){         body,table,td,p,a,li,blockquote{            -webkit-text-size-adjust:none !important;            }         }  @media only screen and (max-width: 480px){         body{            width:100% !important;            min-width:100% !important;            }         }  @media only screen and (max-width: 480px){         #bodyCell{            padding-top:10px !important;            }         }  @media only screen and (max-width: 480px){         .mcnRetinaImage{            max-width:100% !important;            }         }  @media only screen and (max-width: 480px){         .mcnImage{            width:100% !important;            }         }  @media only screen and (max-width: 480px){         .mcnCartContainer,.mcnCaptionTopContent,.mcnRecContentContainer,.mcnCaptionBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcnImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionRightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRightImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCardRightTextContentContainer,.mcnImageCardLeftImageContentContainer,.mcnImageCardRightImageContentContainer{            max-width:100% !important;            width:100% !important;            }         }  @media only screen and (max-width: 480px){         .mcnBoxedTextContentContainer{            min-width:100% !important;            }         }  @media only screen and (max-width: 480px){         .mcnImageGroupContent{            padding:9px !important;            }         }  @media only screen and (max-width: 480px){         .mcnCaptionLeftContentOuter .mcnTextContent,.mcnCaptionRightContentOuter .mcnTextContent{            padding-top:9px !important;            }         }  @media only screen and (max-width: 480px){         .mcnImageCardTopImageContent,.mcnCaptionBottomContent:last-child .mcnCaptionBottomImageContent,.mcnCaptionBlockInner .mcnCaptionTopContent:last-child .mcnTextContent{            padding-top:18px !important;            }         }  @media only screen and (max-width: 480px){         .mcnImageCardBottomImageContent{            padding-bottom:9px !important;            }         }  @media only screen and (max-width: 480px){         .mcnImageGroupBlockInner{            padding-top:0 !important;            padding-bottom:0 !important;            }         }  @media only screen and (max-width: 480px){         .mcnImageGroupBlockOuter{            padding-top:9px !important;            padding-bottom:9px !important;            }         }  @media only screen and (max-width: 480px){         .mcnTextContent,.mcnBoxedTextContentColumn{            padding-right:18px !important;            padding-left:18px !important;            }         }  @media only screen and (max-width: 480px){         .mcnImageCardLeftImageContent,.mcnImageCardRightImageContent{            padding-right:18px !important;            padding-bottom:0 !important;            padding-left:18px !important;            }         }  @media only screen and (max-width: 480px){         .mcpreview-image-uploader{            display:none !important;            width:100% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Heading 1         @tip Make the first-level headings larger in size for better readability on small screens.         */         h1{            /*@editable*/font-size:22px !important;            /*@editable*/line-height:125% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Heading 2         @tip Make the second-level headings larger in size for better readability on small screens.         */         h2{            /*@editable*/font-size:20px !important;            /*@editable*/line-height:125% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Heading 3         @tip Make the third-level headings larger in size for better readability on small screens.         */         h3{            /*@editable*/font-size:18px !important;            /*@editable*/line-height:125% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Heading 4         @tip Make the fourth-level headings larger in size for better readability on small screens.         */         h4{            /*@editable*/font-size:16px !important;            /*@editable*/line-height:150% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Boxed Text         @tip Make the boxed text larger in size for better readability on small screens. We recommend a font size of at least 16px.         */         .mcnBoxedTextContentContainer .mcnTextContent,.mcnBoxedTextContentContainer .mcnTextContent p{            /*@editable*/font-size:14px !important;            /*@editable*/line-height:150% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Preheader Visibility         @tip Set the visibility of the email's preheader on small screens. You can hide it to save space.         */         #templatePreheader{            /*@editable*/display:block !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Preheader Text         @tip Make the preheader text larger in size for better readability on small screens.         */         #templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{            /*@editable*/font-size:14px !important;            /*@editable*/line-height:150% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Header Text         @tip Make the header text larger in size for better readability on small screens.         */         #templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{            /*@editable*/font-size:16px !important;            /*@editable*/line-height:150% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Body Text         @tip Make the body text larger in size for better readability on small screens. We recommend a font size of at least 16px.         */         #templateBody .mcnTextContent,#templateBody .mcnTextContent p{            /*@editable*/font-size:16px !important;            /*@editable*/line-height:150% !important;            }         }  @media only screen and (max-width: 480px){         /*         @tab Mobile Styles         @section Footer Text         @tip Make the footer content text larger in size for better readability on small screens.         */         #templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{            /*@editable*/font-size:14px !important;            /*@editable*/line-height:150% !important;            }         }</style></head><body><center>   <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"100%\" width=\"100%\" id=\"bodyTable\">      <tr>         <td align=\"center\" valign=\"top\" id=\"bodyCell\">            <!-- BEGIN TEMPLATE // -->            <!--[if (gte mso 9)|(IE)]>            <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"600\" style=\"width:600px;\">               <tr>                  <td align=\"center\" valign=\"top\" width=\"600\" style=\"width:600px;\">            <![endif]-->            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"templateContainer\">               <tr>                  <td valign=\"top\" id=\"templatePreheader\"></td>               </tr>               <tr>                  <td valign=\"top\" id=\"templateHeader\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnImageBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnImageBlockOuter\">                     <tr>                        <td valign=\"top\" style=\"padding:0px\" class=\"mcnImageBlockInner\">                           <table align=\"left\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"mcnImageContentContainer\" style=\"min-width:100%;\">                              <tbody><tr>                                 <td class=\"mcnImageContent\" valign=\"top\" style=\"padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;\">                                    <img align=\"center\" alt=\"\" src=\"https://gallery.mailchimp.com/8b3a88aebd5128437dd9fba25/images/5f9f35bf-c1fa-4f5d-b6a6-db1d0f6c7085.png\" width=\"599.5\" style=\"max-width:1199px; padding-bottom: 0; display: inline !important; vertical-align: bottom;\" class=\"mcnRetinaImage\">                                 </td>                              </tr>                              </tbody></table>                        </td>                     </tr>                     </tbody>                  </table></td>               </tr>               <tr>                  <td valign=\"top\" id=\"templateBody\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnTextBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnTextBlockOuter\">                     <tr>                        <td valign=\"top\" class=\"mcnTextBlockInner\" style=\"padding-top:9px;\">                           <!--[if mso]>                           <table align=\"left\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"width:100%;\">                              <tr>                           <![endif]-->                           <!--[if mso]>                           <td valign=\"top\" width=\"600\" style=\"width:600px;\">                           <![endif]-->                           <table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"max-width:100%; min-width:100%;\" width=\"100%\" class=\"mcnTextContentContainer\">                              <tbody><tr>                                 <td valign=\"top\" class=\"mcnTextContent\" style=\"padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;\">                                    <p>Hi {{1.object.billing_details.name}}! <br>                                       <br>                                       Thank you for signing up.<br>                                       <br>                                       Before we can start optimising your landing page, website or design we need to setup a meeting. We will connect with you and have a small talk about your business. This way we have a better understanding about your needs and can make sure we tackle the right issues first.<br>                                        </p>                                 </td>                              </tr>                              </tbody></table>                           <!--[if mso]>                           </td>                           <![endif]-->                           <!--[if mso]>                           </tr>                           </table>                           <![endif]-->                        </td>                     </tr>                     </tbody>                  </table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnButtonBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnButtonBlockOuter\">                     <tr>                        <td style=\"padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;\" valign=\"top\" align=\"center\" class=\"mcnButtonBlockInner\">                           <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"mcnButtonContentContainer\" style=\"border-collapse: separate !important;border-radius: 4px;background-color: #1D82FF;\">                              <tbody>                              <tr>                                 <td align=\"center\" valign=\"middle\" class=\"mcnButtonContent\" style=\"font-family: \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 16px; padding: 10px 18px;\">                                    <a class=\"mcnButton \" title=\"Click here to schedule a meeting\" href=\"https://calendly.com/landing-page-specialist/introductory-meeting\" target=\"_blank\" style=\"padding: 18px;font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;\">Click here to schedule a meeting</a>                                 </td>                              </tr>                              </tbody>                           </table>                        </td>                     </tr>                     </tbody>                  </table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnTextBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnTextBlockOuter\">                     <tr>                        <td valign=\"top\" class=\"mcnTextBlockInner\" style=\"padding-top:9px;\">                           <!--[if mso]>                           <table align=\"left\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"width:100%;\">                              <tr>                           <![endif]-->                           <!--[if mso]>                           <td valign=\"top\" width=\"600\" style=\"width:600px;\">                           <![endif]-->                           <table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"max-width:100%; min-width:100%;\" width=\"100%\" class=\"mcnTextContentContainer\">                              <tbody><tr>                                 <td valign=\"top\" class=\"mcnTextContent\" style=\"padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;\">                                    <p>Looking forward to be in touch and get that conversion growing. <br>                                       <br>                                       In the meanwhile you can start with this first conversion advice: http://bit.ly/2YOoCD5<br>                                       <br>                                       Kind regards,<br>                                       Ely Fornoville<br>                                       Landing Page Specialist<br>                                       +32 477 80 24 68</p>                                 </td>                              </tr>                              </tbody></table>                           <!--[if mso]>                           </td>                           <![endif]-->                           <!--[if mso]>                           </tr>                           </table>                           <![endif]-->                        </td>                     </tr>                     </tbody>                  </table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnDividerBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnDividerBlockOuter\">                     <tr>                        <td class=\"mcnDividerBlockInner\" style=\"min-width:100%; padding:18px;\">                           <table class=\"mcnDividerContent\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"min-width: 100%;border-top: 2px none #FFFFFF;\">                              <tbody><tr>                                 <td>                                    <span></span>                                 </td>                              </tr>                              </tbody></table>                           <!--                                       <td class=\"mcnDividerBlockInner\" style=\"padding: 18px;\">                                       <hr class=\"mcnDividerContent\" style=\"border-bottom-color:none; border-left-color:none; border-right-color:none; border-bottom-width:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:0; margin-bottom:0; margin-left:0;\" />                           -->                        </td>                     </tr>                     </tbody>                  </table></td>               </tr>               <tr>                  <td valign=\"top\" id=\"templateFooter\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnDividerBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnDividerBlockOuter\">                     <tr>                        <td class=\"mcnDividerBlockInner\" style=\"min-width: 100%; padding: 10px 18px 25px;\">                           <table class=\"mcnDividerContent\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"min-width: 100%;border-top: 2px solid #EEEEEE;\">                              <tbody><tr>                                 <td>                                    <span></span>                                 </td>                              </tr>                              </tbody></table>                           <!--                                       <td class=\"mcnDividerBlockInner\" style=\"padding: 18px;\">                                       <hr class=\"mcnDividerContent\" style=\"border-bottom-color:none; border-left-color:none; border-right-color:none; border-bottom-width:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:0; margin-bottom:0; margin-left:0;\" />                           -->                        </td>                     </tr>                     </tbody>                  </table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"mcnTextBlock\" style=\"min-width:100%;\">                     <tbody class=\"mcnTextBlockOuter\">                     <tr>                        <td valign=\"top\" class=\"mcnTextBlockInner\" style=\"padding-top:9px;\">                           <!--[if mso]>                           <table align=\"left\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"width:100%;\">                              <tr>                           <![endif]-->                           <!--[if mso]>                           <td valign=\"top\" width=\"600\" style=\"width:600px;\">                           <![endif]-->                           <table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"max-width:100%; min-width:100%;\" width=\"100%\" class=\"mcnTextContentContainer\">                              <tbody><tr>                                 <td valign=\"top\" class=\"mcnTextContent\" style=\"padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;\">                                    <em><a href=\"http://www.landing-page-specialist.io\" target=\"_blank\">Landing Page Specialist</a></em><br>                                                                      </td>                              </tr>                              </tbody></table>                           <!--[if mso]>                           </td>                           <![endif]-->                           <!--[if mso]>                           </tr>                           </table>                           <![endif]-->                        </td>                     </tr>                     </tbody>                  </table></td>               </tr>            </table>            <!--[if (gte mso 9)|(IE)]>            </td>            </tr>            </table>            <![endif]-->            <!-- // END TEMPLATE -->         </td>      </tr>   </table></center></body></html>",
+                                "sender": "",
+                                "headers": [],
+                                "replyTo": "",
+                                "subject": "Welcome to Landing Page Specialist",
+                                "priority": "normal",
+                                "inReplyTo": "",
+                                "references": [],
+                                "attachments": [],
+                                "contentType": "html"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 597,
+                                    "y": 618
+                                },
+                                "restore": {
+                                    "cc": {
+                                        "mode": "chose",
+                                        "items": []
+                                    },
+                                    "to": {
+                                        "mode": "chose",
+                                        "items": [
+                                            "undefined"
+                                        ]
+                                    },
+                                    "bcc": {
+                                        "mode": "chose",
+                                        "items": []
+                                    },
+                                    "folder": {
+                                        "label": "Verzonden berichten"
+                                    },
+                                    "account": {
+                                        "label": "My Others (SMTP) connection (SMTP support@landing-page-specialist.io)"
+                                    },
+                                    "headers": {
+                                        "items": []
+                                    },
+                                    "priority": {
+                                        "label": "Normal"
+                                    },
+                                    "references": {
+                                        "mode": "chose",
+                                        "items": []
+                                    },
+                                    "accountImap": {
+                                        "label": "My Google connection (ely.fornoville@gmail.com)"
+                                    },
+                                    "attachments": {
+                                        "mode": "chose",
+                                        "items": []
+                                    },
+                                    "contentType": {
+                                        "label": "HTML"
+                                    },
+                                    "saveAfterSent": {
+                                        "label": "Yes"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "account",
+                                        "type": "account",
+                                        "label": "Connection",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "saveAfterSent",
+                                        "type": "select",
+                                        "label": "Save message after sending",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                true,
+                                                false
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "accountImap",
+                                        "type": "account",
+                                        "label": "Connection",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "folder",
+                                        "type": "select",
+                                        "label": "Folder",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "email",
+                                            "type": "email",
+                                            "label": "Email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "labels": {
+                                            "add": "Add a recipient",
+                                            "edit": "Edit a recipient"
+                                        },
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "contentType",
+                                        "type": "select",
+                                        "label": "Content Type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "html",
+                                                "text"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": [
+                                            {
+                                                "name": "fileName",
+                                                "type": "filename",
+                                                "label": "File name",
+                                                "required": true,
+                                                "semantic": "file:name"
+                                            },
+                                            {
+                                                "name": "data",
+                                                "type": "buffer",
+                                                "label": "Data",
+                                                "required": true,
+                                                "semantic": "file:data"
+                                            },
+                                            {
+                                                "name": "cid",
+                                                "type": "text",
+                                                "label": "Content-ID"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Attachments",
+                                        "labels": {
+                                            "add": "Add an attachment",
+                                            "edit": "Edit an attachment"
+                                        }
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "email",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Copy recipient",
+                                        "labels": {
+                                            "add": "Add a copy recipient",
+                                            "edit": "Edit a copy recipient"
+                                        }
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "email",
+                                            "type": "email",
+                                            "label": "Email address"
+                                        },
+                                        "type": "array",
+                                        "label": "Blind copy recipient",
+                                        "labels": {
+                                            "add": "Add a blind copy recipient",
+                                            "edit": "Edit a blind copy recipient"
+                                        }
+                                    },
+                                    {
+                                        "name": "sender",
+                                        "type": "email",
+                                        "label": "Sender"
+                                    },
+                                    {
+                                        "name": "replyTo",
+                                        "type": "text",
+                                        "label": "Reply-To"
+                                    },
+                                    {
+                                        "name": "inReplyTo",
+                                        "type": "text",
+                                        "label": "In-Reply-To"
+                                    },
+                                    {
+                                        "name": "references",
+                                        "spec": {
+                                            "type": "text",
+                                            "label": "Reference",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "References"
+                                    },
+                                    {
+                                        "name": "priority",
+                                        "type": "select",
+                                        "label": "Priority",
+                                        "validate": {
+                                            "enum": [
+                                                "high",
+                                                "normal",
+                                                "low"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "key",
+                                                "type": "text",
+                                                "label": "Key",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value",
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "text",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "html",
+                                        "type": "text",
+                                        "label": "Content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": false,
+            "sequential": false,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.integromat.com"
+    }
+}
